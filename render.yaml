@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: eventforge
+    runtime: node
+    buildCommand: npm ci --prefix server && npm ci --prefix frontend && npm run build --prefix frontend
+    startCommand: npm start --prefix server
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true

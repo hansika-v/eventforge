@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+dist/
+.DS_Store
+node_modules
+.env
+*.swp
+dist
