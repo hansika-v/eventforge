@@ -288,7 +288,7 @@ function LandingPage() {
           </p>
           <div className="cta-row">
             <Link className="primary-btn large" to="/register">Create account</Link>
-            <Link className="secondary-btn large" to="/login">View demo login</Link>
+            <Link className="secondary-btn large" to="/login">Sign in</Link>
           </div>
         </div>
 
@@ -336,7 +336,7 @@ function LandingPage() {
 
 function LoginPage({ setAuth }) {
   const navigate = useNavigate()
-  const [form, setForm] = useState({ email: 'organizer@eventforge.com', password: '123456' })
+  const [form, setForm] = useState({ email: '', password: '' })
   const [error, setError] = useState('')
 
   const handleChange = (event) => {
@@ -354,16 +354,6 @@ function LoginPage({ setAuth }) {
     }
   }
 
-  const fillDemo = (role) => {
-    const options = {
-      organizer: { email: 'organizer@eventforge.com', password: '123456' },
-      staff: { email: 'staff@eventforge.com', password: '123456' },
-      attendee: { email: 'attendee@eventforge.com', password: '123456' },
-    }
-    const demo = options[role]
-    setForm(demo)
-  }
-
   return (
     <div className="auth-shell split">
       <div className="auth-left">
@@ -375,12 +365,6 @@ function LoginPage({ setAuth }) {
       <div className="auth-card">
         <h2>Welcome back</h2>
         <p>Sign in to continue managing your event operations.</p>
-
-        <div className="demo-row">
-          <button type="button" className="chip small" onClick={() => fillDemo('organizer')}>Organizer demo</button>
-          <button type="button" className="chip small" onClick={() => fillDemo('staff')}>Staff demo</button>
-          <button type="button" className="chip small" onClick={() => fillDemo('attendee')}>Attendee demo</button>
-        </div>
 
         <form className="stacked-form" onSubmit={handleSubmit}>
           <label>

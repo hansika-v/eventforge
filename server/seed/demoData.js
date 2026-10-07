@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const User = require('../models/User');
 const Venue = require('../models/Venue');
 const Speaker = require('../models/Speaker');
@@ -14,7 +15,7 @@ const seedDemoData = async () => {
     const organizer = await User.create({
       name: 'Ava Morgan',
       email: 'organizer@eventforge.com',
-      password: await bcrypt.hash('123456', 10),
+      password: await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 10),
       role: 'organizer',
       company: 'EventForge Labs',
       phone: '+1 555 010 2000',
@@ -25,7 +26,7 @@ const seedDemoData = async () => {
     const staff = await User.create({
       name: 'Marcus Lee',
       email: 'staff@eventforge.com',
-      password: await bcrypt.hash('123456', 10),
+      password: await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 10),
       role: 'staff',
       company: 'EventForge Ops',
       phone: '+1 555 010 2001',
@@ -36,7 +37,7 @@ const seedDemoData = async () => {
     const attendee = await User.create({
       name: 'Riya Patel',
       email: 'attendee@eventforge.com',
-      password: await bcrypt.hash('123456', 10),
+      password: await bcrypt.hash(crypto.randomBytes(32).toString('hex'), 10),
       role: 'attendee',
       company: 'Northwind Consulting',
       phone: '+1 555 010 2002',

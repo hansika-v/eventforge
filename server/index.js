@@ -53,7 +53,9 @@ app.use((err, req, res, next) => {
 
 const startServer = async () => {
   await connectDB();
-  await seedDemoData();
+  if (process.env.NODE_ENV !== 'production') {
+    await seedDemoData();
+  }
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });

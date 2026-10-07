@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { isDemoAccountEmail } = require('../utils/demoAccounts');
 
 const protect = async (req, res, next) => {
   let token;
@@ -18,6 +19,10 @@ const protect = async (req, res, next) => {
 
     if (!req.user) {
       return res.status(401).json({ message: 'User not found' });
+    }
+
+    if (isDemoAccountEmail(req.user.email)) {
+      return res.status(401).json({ message: 'Invalid token' });
     }
 
     next();

@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { isDemoAccountEmail } = require('../utils/demoAccounts');
 
 const allowedRoles = ['admin', 'organizer', 'staff', 'speaker', 'attendee', 'sponsor'];
 
@@ -53,7 +54,12 @@ const login = async (req, res) => {
       return res.status(400).json({ message: 'Email and password are required' });
     }
 
-    const user = await User.findOne({ email: email.toLowerCase() });
+    const normalizedEmail = email.toLowerCase();
+    if (isDemoAccountEmail(normalizedEmail)) {
+      return res.status(401).json({ message: 'Invalid credentials' });
+    }
+
+    const user = await User.findOne({ email: normalizedEmail });
     if (!user) {
       return res.status(401).json({ message: 'Invalid credentials' });
     }
